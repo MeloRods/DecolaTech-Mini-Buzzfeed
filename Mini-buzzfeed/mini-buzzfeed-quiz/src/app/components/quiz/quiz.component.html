@@ -1,0 +1,26 @@
+<div *ngIf="!isQuizComplete; else result">
+    <h2>{{ quizService.questions[currentStep].text }}</h2>
+    <div class="options">
+        <div class="button-container">
+            <div class="option-item" *ngFor="let score of [1, 2, 3, 4, 5]">
+                <button (click)="selectOption(score)">
+                    {{ score }}
+                </button>
+                <span class="option-label">
+                    {{ score === 1 ? 'Nada' : score === 2 ? 'Pouco' : score === 3 ? 'Neutro' : score === 4 ? 'Bastante' : 'Muito' }}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #result>
+    <h2>Seu Perfil</h2>
+    <div class="result">
+        <strong>Seu perfil dominante é: {{ quizService.getResult().trait.charAt(0).toUpperCase() + quizService.getResult().trait.slice(1) }}</strong>
+        <p>{{ quizService.getResult().comment.charAt(0).toUpperCase() + quizService.getResult().comment.slice(1) }}</p>
+    </div>
+    <div class="restart-button">
+        <button (click)="restartQuiz()">Realizar o Teste Novamente</button>
+    </div>
+</ng-template>
